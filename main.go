@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 
-	"github.com/lanrion/gopkg-examples/syncT"
+	sync "github.com/lanrion/gopkg-examples/sync"
 )
 
 func main() {
-	syncT.Log(os.Stdout, "path", "/search?q=flowers")
+	sync.Log(os.Stdout, "path", "/search?q=flowers")
 }

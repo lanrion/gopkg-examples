@@ -1,4 +1,4 @@
-package syncT
+package sync
 
 import (
 	"bytes"
