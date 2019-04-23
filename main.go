@@ -10,6 +10,7 @@ func main() {
 	// container.TestRing()
 
 	// errors.TestError()
-	sync.TestWaitGroup()
+	// sync.TestWaitGroup()
+	sync.TestOnce()
 
 }
