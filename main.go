@@ -8,4 +8,5 @@ func main() {
 	// container.TestList()
 	// container.TestHeap()
 	container.TestRing()
+	// container.TestRing()
 }
