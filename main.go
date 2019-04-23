@@ -1,11 +1,11 @@
 package main
 
-import (
-	"os"
-
-	sync "github.com/lanrion/gopkg-examples/sync"
-)
+import "github.com/lanrion/gopkg-examples/container"
 
 func main() {
-	sync.Log(os.Stdout, "path", "/search?q=flowers")
+	// sync.Log(os.Stdout, "path", "/search?q=flowers")
+	// sync.TestPoolList()
+	// container.TestList()
+	// container.TestHeap()
+	container.TestRing()
 }
