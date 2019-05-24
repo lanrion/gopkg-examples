@@ -12,6 +12,7 @@ func main() {
 	// errors.TestError()
 	// sync.TestWaitGroup()
 	// sync.TestOnce()
-	sync.TestMutex()
+	// sync.TestMutex()
+	sync.TestCond()
 
 }
