@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 )
+
 // Mutex 是一个互斥锁
 // 是一种用于多线程编程中，防止两条线程同时对同一公共资源（比如全局变量）进行读写的机制。该目的通过将代码切片成一个一个的临界区域（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。
 // 在一个 goroutine 获得 Mutex 后，其他 goroutine 只能等到这个 goroutine 释放该 Mutex
@@ -22,7 +23,7 @@ func TestMutex() {
 	mutex.Lock()
 	count := 3
 
-// 如果不添加lock的话, 打印出来的i值是无序的
+	// 如果不添加lock的话, 打印出来的i值是无序的
 	for index := 0; index < count; index++ {
 		wg.Add(1)
 		go func(i int) {
