@@ -9,9 +9,12 @@ import (
 	"path"
 )
 
-func TestMime(){
+func GetMime(){
 
-	file, _ := os.Open("./qrcode/weixin_pay.JPG")
+	file, err := os.Open("./assets/weixin_pay.JPG")
+	if err != nil {
+		fmt.Println("Open file error: ", err.Error())
+	}
 	defer file.Close()
 
 	//

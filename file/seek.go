@@ -23,7 +23,7 @@ func sizeFunc(content io.ReadSeeker) (int64, error) {
 }
 
 func TestSeek() {
-	file, err := os.Open("./qrcode/weixin_pay.JPG")
+	file, err := os.Open("./assets/weixin_pay.JPG")
 	defer file.Close()
 	if err != nil {
 		fmt.Println("TestSeek error: ", err)

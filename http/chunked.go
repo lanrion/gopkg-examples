@@ -11,6 +11,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -18,21 +19,34 @@ func main() {
 	http.HandleFunc("/video", videoHandler)
 	http.HandleFunc("/image", imageHandler)
 	http.HandleFunc("/hls/playlist/", hlsHandler)
-
+	http.HandleFunc("/serve_content", serveContentHandler)
 	http.ListenAndServe(":3000", nil)
+
+}
+
+func serveContentHandler(w http.ResponseWriter, r *http.Request)  {
+	file, _ := os.Open("./assets/hugou.mp4")
+	defer file.Close()
+	http.ServeContent(w, r, file.Name(), time.Now(), file)
 }
 
 // 使用以下命令生成 m3u8以及ts文件
 //ffmpeg -re -i text_chunk.mp4 -c copy -f hls -hls_time 9 -hls_list_size 0 -bsf:v h264_mp4toannexb output.m3u8
 func hlsHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("Host: ", r.Host)
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true");
+	w.Header().Add("Access-Control-Allow-Headers",  "X-Requested-With,Content-Type,x-csrftoken")    //header的类型
+	w.Header().Set("Accept-Ranges", "bytes")
 
 	switch path.Ext(r.URL.Path) {
 	case ".m3u8":
 		m3u8File, _ := os.Open("/Users/lanrion/Documents/test_hls/output.m3u8")
+		defer m3u8File.Close()
 		buf := bytes.NewBuffer(nil)
 		io.Copy(buf, m3u8File);
 		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Accept-Ranges", "bytes")
+
 		w.Header().Set("Content-Type", "application/x-mpegURL")
 		w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -48,10 +62,9 @@ func hlsHandler(w http.ResponseWriter, r *http.Request) {
 
 		tsPath := fmt.Sprintf("/Users/lanrion/Documents/test_hls/%s", paths[2])
 		tsFile, _ := os.Open(tsPath)
-
+		defer tsFile.Close()
 		buf := bytes.NewBuffer(nil)
 		io.Copy(buf, tsFile);
-
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "video/mp2ts")
 		w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
