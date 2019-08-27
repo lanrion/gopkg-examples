@@ -36,7 +36,7 @@ func TestWaitGroup() {
 		close(testChan)
 	}()
 
-	for v := range(testChan)  {
+	for v := range testChan {
 		fmt.Println("V: ", v)
 	}
 
