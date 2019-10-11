@@ -10,7 +10,7 @@ import (
 	"path"
 )
 
-func GetMime(){
+func GetMime() {
 
 	file, err := os.Open("/Users/lanrion/Projects/go/gopath/src/github.com/lanrion/gopkg-examples/assets/weixin_pay.JPG")
 	if err != nil {

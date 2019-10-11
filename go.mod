@@ -3,12 +3,13 @@ module github.com/lanrion/gopkg-examples
 go 1.12
 
 require (
-	github.com/astaxie/beego v1.12.0 // indirect
-	github.com/beego/bee v1.10.0 // indirect
+	github.com/go-redis/redis v6.15.4+incompatible
+	github.com/gorilla/websocket v1.4.1
+	github.com/json-iterator/go v1.1.7
 	github.com/makiuchi-d/gozxing v0.0.0-20190615045926-ee67f7730a47
-	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
-	golang.org/x/text v0.3.0 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.2
+	golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3 // indirect
+	golang.org/x/sys v0.0.0-20190412213103-97732733099d // indirect
 	golang.org/x/xerrors v0.0.0-20190513163551-3ee3066db522 // indirect
-	gopkg.in/gographics/imagick.v2 v2.5.0
-	gopkg.in/gographics/imagick.v3 v3.2.0 // indirect
+	gopkg.in/yaml.v2 v2.2.2 // indirect
 )

@@ -63,8 +63,5 @@ func MultipleFile() {
 		panic(err)
 	}
 	fmt.Println("name2: ", name)
-	
-
 
 }
-

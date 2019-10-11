@@ -79,4 +79,3 @@ func (e *EncodeBuf) StringBytes(s []byte) {
 func (e *EncodeBuf) Bytes(s []byte) {
 	e.buf = append(e.buf, s...)
 }
-

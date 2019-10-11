@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func NewTicker()  {
+func NewTicker() {
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
 	var counter = 0

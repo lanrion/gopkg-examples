@@ -1,6 +1,7 @@
 package errors
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"sync"
@@ -8,6 +9,23 @@ import (
 
 // recover 只允许在defer函数中使用
 // panic相当于直接抛出异常 raise
+
+func LogErr()(err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("err: %+v", r)
+			log.Println("work failed:", err)
+		}
+
+		if err != nil {
+			log.Println("work failed11:", err)
+		}
+	}()
+
+	err = errors.New("1234321")
+	return
+}
+
 
 func TestError() {
 
@@ -19,7 +37,6 @@ func TestError() {
 
 	// panic相当于直接抛出异常 raise
 	// panic("no value for $USER")
-
 }
 
 func testArrayIndex(wg *sync.WaitGroup) {

@@ -1,22 +1,24 @@
 package main
 
 import (
-	_ "image/jpeg"
+	"fmt"
+	"os/exec"
 )
+
+type Animal struct {
+	Name string
+}
 
 func main() {
 
-	var a []int
-	for i:=0; i < 10 ; i++  {
-		a = append(a, i)
-	}
-}
-
-func Server(i interface{}) {
+	str, err :=exec.LookPath("mogri111fy")
+	fmt.Println(err, str)
 
 }
 
-
-
+func test1(dog interface{}) {
+	mydog := dog.(Animal)
+	fmt.Println(mydog.Name)
+}
 
 

@@ -3,7 +3,6 @@ package data
 import (
 	"fmt"
 	"io"
-	"net/http"
 	"sync"
 	"time"
 )
@@ -32,12 +31,12 @@ func Array1() {
 }
 
 type Order struct {
-	Id int
-	Name string
+	Id        int
+	Name      string
 	CreatedAt time.Time
 }
 
-func filter(arr []Order, f func(Order) bool)[]Order {
+func filter(arr []Order, f func(Order) bool) []Order {
 	vsf := make([]Order, 0)
 	for _, v := range arr {
 		if f(v) {
@@ -52,24 +51,20 @@ func GenerateOrders(num int) (orders []Order) {
 	baseNum := 10
 	goroutineNums := num / baseNum
 	orderChan := make(chan Order)
-	for i:= 0; i < goroutineNums ; i++ {
+	for i := 0; i < goroutineNums; i++ {
 		wg.Add(1)
 		go func(total int) {
 			defer wg.Done()
-			for i := 0 ; i < total; i++ {
+			for i := 0; i < total; i++ {
 				name := fmt.Sprintf("OrderName-%d", i)
 				createdAt := time.Now().Add(1 * time.Minute)
-				order := Order{Id: i, Name: name, CreatedAt: createdAt }
+				order := Order{Id: i, Name: name, CreatedAt: createdAt}
 				orderChan <- order
 			}
 		}(baseNum)
 	}
 
 	io.Pipe()
-
-	http.NewRequest()
-
-	io.Copy()
 
 	// 不会死锁
 	go func() {
@@ -99,4 +94,3 @@ func GroupOrder(num int) {
 	// 	fmt.Println("Order: ", v.Name)
 	// }
 }
-

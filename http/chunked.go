@@ -24,7 +24,7 @@ func main() {
 
 }
 
-func serveContentHandler(w http.ResponseWriter, r *http.Request)  {
+func serveContentHandler(w http.ResponseWriter, r *http.Request) {
 	file, _ := os.Open("./assets/hugou.mp4")
 	defer file.Close()
 	http.ServeContent(w, r, file.Name(), time.Now(), file)
@@ -35,8 +35,8 @@ func serveContentHandler(w http.ResponseWriter, r *http.Request)  {
 func hlsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Host: ", r.Host)
 	w.Header().Set("Access-Control-Allow-Methods", "*")
-	w.Header().Set("Access-Control-Allow-Credentials", "true");
-	w.Header().Add("Access-Control-Allow-Headers",  "X-Requested-With,Content-Type,x-csrftoken")    //header的类型
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	w.Header().Add("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,x-csrftoken") //header的类型
 	w.Header().Set("Accept-Ranges", "bytes")
 
 	switch path.Ext(r.URL.Path) {
@@ -44,7 +44,7 @@ func hlsHandler(w http.ResponseWriter, r *http.Request) {
 		m3u8File, _ := os.Open("/Users/lanrion/Documents/test_hls/output.m3u8")
 		defer m3u8File.Close()
 		buf := bytes.NewBuffer(nil)
-		io.Copy(buf, m3u8File);
+		io.Copy(buf, m3u8File)
 		w.WriteHeader(http.StatusOK)
 
 		w.Header().Set("Content-Type", "application/x-mpegURL")
@@ -64,7 +64,7 @@ func hlsHandler(w http.ResponseWriter, r *http.Request) {
 		tsFile, _ := os.Open(tsPath)
 		defer tsFile.Close()
 		buf := bytes.NewBuffer(nil)
-		io.Copy(buf, tsFile);
+		io.Copy(buf, tsFile)
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "video/mp2ts")
 		w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
@@ -97,7 +97,7 @@ func imageHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func videoHandler(w http.ResponseWriter, req *http.Request)  {
+func videoHandler(w http.ResponseWriter, req *http.Request) {
 	file, _ := os.Open("./assets/hugou.mp4")
 	defer file.Close()
 
@@ -127,7 +127,7 @@ func videoHandler(w http.ResponseWriter, req *http.Request)  {
 }
 
 func texHandler(w http.ResponseWriter, req *http.Request) {
-	for i := 0 ; i < 3; i++ {
+	for i := 0; i < 3; i++ {
 		w.Write([]byte("x"))
 		log.Printf("echo \"x\" to client.")
 		//time.Sleep(time.Duration(i+1 * 5) * time.Second)

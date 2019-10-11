@@ -1,4 +1,4 @@
-package sync
+package main
 
 import (
 	"fmt"
@@ -49,7 +49,7 @@ func GetRoutineCount() {
 	//profile := pprof.Lookup("goroutine")
 	wg := sync.WaitGroup{}
 	//for i := 0; i < d.cfg.Concurrency; i++ {
-	for i:=0; i < 30; i++  {
+	for i := 0; i < 30; i++ {
 		wg.Add(1)
 		go func() {
 			wg.Done()
