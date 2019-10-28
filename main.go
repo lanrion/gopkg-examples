@@ -2,23 +2,20 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
+	"github.com/bxcodec/faker/v3"
+	"reflect"
 )
 
-type Animal struct {
-	Name string
+type FakeData struct {
+	Category []string
 }
 
 func main() {
+	name, _ := faker.GetPerson().FirstName(reflect.Value{})
+	fmt.Println(name)
 
-	str, err :=exec.LookPath("mogri111fy")
-	fmt.Println(err, str)
 
 }
 
-func test1(dog interface{}) {
-	mydog := dog.(Animal)
-	fmt.Println(mydog.Name)
-}
 
 

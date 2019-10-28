@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/websocket"
 	"html/template"
 	"log"
 	"net/http"
+	"time"
 )
 
 var upgrader = websocket.Upgrader{}
@@ -12,11 +14,19 @@ var upgrader = websocket.Upgrader{}
 func serveWs(w http.ResponseWriter, r *http.Request) {
 	log.Println("serveWs")
 
+	cookie := r.Header.Get("Cookie")
+
+	fmt.Println("Cookie:", cookie)
+
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("WS Upgrade err:", err)
 	}
 	defer c.Close()
+
+	// c.SetPingHandler(nil)
+
+	c.SetPongHandler(func(string) error { c.SetReadDeadline(time.Now().Add(time.Second)); return nil })
 
 	for {
 		mt, message, err := c.ReadMessage()
@@ -28,27 +38,6 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 		err = c.WriteMessage(mt, message)
 		if err != nil {
 			log.Println("write:", err)
-			break
-		}
-	}
-}
-
-func readMsg(conn *websocket.Conn) {
-	for {
-		_, message, err := conn.ReadMessage()
-		if err != nil {
-			log.Println("read:", err)
-			break
-		}
-		log.Printf("recv: %s", message)
-	}
-}
-
-func writeMsg(conn *websocket.Conn) {
-	for {
-		err := conn.WriteMessage(1, []byte("123"))
-		if err != nil {
-			log.Println("read:", err)
 			break
 		}
 	}
